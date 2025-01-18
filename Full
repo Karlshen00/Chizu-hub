@@ -1,24 +1,24 @@
-local gameData = {
+local scripts = {
     ["76098497356508"] = "https://raw.githubusercontent.com/Karlshen00/Chizu-hub/refs/heads/main/Fit%20Piece%202",
     ["7540891731"] = "https://raw.githubusercontent.com/Karlshen00/Chizu-hub/refs/heads/main/Red%20light%20Green%20light",
     ["10253248401"] = "https://raw.githubusercontent.com/Karlshen00/Chizu-hub/refs/heads/main/elemetal%20power%20tycoon",
     ["17841624878"] = "https://raw.githubusercontent.com/Karlshen00/Chizu-hub/refs/heads/main/Trollge%20Games"
 }
 
-function executeGameById(gameId)
-    local githubURL = gameData[gameId]
-    
-    if githubURL then
-        game:GetService("StarterGui"):SetCore("SendNotification", {
-            Title = "Chizu hub is loading",
-            Text = "Chizru is hot",
-            Duration = 3
-        })
+local placeId = tostring(game.PlaceId)
+local scriptUrl = scripts[placeId]
 
-        print("Executing script for game ID: " .. gameId)
-        local scriptContent = game:HttpGet(githubURL)
-        loadstring(scriptContent)()  -- Execute the script from GitHub
-    else
-        print("Game ID not found.")
-    end
+if scriptUrl then
+    -- Display notification
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Chizu hub is loading",
+        Text = "Chizru is hot",
+        Duration = 3
+    })
+
+    print("Loading script for game ID:", placeId)
+    loadstring(game:HttpGet(scriptUrl))()
+    print("Made by Chizu script")  -- Message after script execution
+else
+    print("No script available for this game ID:", placeId)
 end
